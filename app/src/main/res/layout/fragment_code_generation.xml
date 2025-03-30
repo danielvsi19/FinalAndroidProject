@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/generatedCodeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Code will appear here"
+        android:textSize="24sp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/generateCodeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Code"
+        style="@style/RoundedButton" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I've Got a Code"
+        style="@style/RoundedButton"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

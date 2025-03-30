@@ -1,32 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- res/navigation/nav_graph.xml -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/loginFragment">
 
+    <!-- Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.couplesnight.ui.auth.LoginFragment"
-        android:label="Login">
+        android:name="com.example.couplesnight.view.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_login_to_signUp"
-            app:destination="@id/signUpFragment" />
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_login_to_preferences"
-            app:destination="@id/preferencesFragment" />
+            android:id="@+id/action_loginFragment_to_codeGenerationFragment"
+            app:destination="@id/codeGenerationFragment" />
     </fragment>
 
+    <!-- Register Fragment -->
     <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.couplesnight.ui.auth.SignUpFragment"
-        android:label="Sign Up">
+        android:id="@+id/registerFragment"
+        android:name="com.example.couplesnight.view.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
         <action
-            android:id="@+id/action_signUp_to_preferences"
+            android:id="@+id/action_registerFragment_to_codeGenerationFragment"
+            app:destination="@id/codeGenerationFragment" />
+    </fragment>
+
+    <!-- Code Generation Fragment -->
+    <fragment
+        android:id="@+id/codeGenerationFragment"
+        android:name="com.example.couplesnight.view.CodeGenerationFragment"
+        android:label="Code Generation"
+        tools:layout="@layout/fragment_code_generation">
+        <action
+            android:id="@+id/action_codeGenerationFragment_to_codeInputFragment"
+            app:destination="@id/codeInputFragment" />
+    </fragment>
+
+    <!-- Code Input Fragment -->
+    <fragment
+        android:id="@+id/codeInputFragment"
+        android:name="com.example.couplesnight.view.CodeInputFragment"
+        android:label="Code Input"
+        tools:layout="@layout/fragment_code_input">
+        <action
+            android:id="@+id/action_codeInputFragment_to_preferencesFragment"
             app:destination="@id/preferencesFragment" />
     </fragment>
 
+    <!-- Preferences Fragment -->
     <fragment
         android:id="@+id/preferencesFragment"
-        android:name="com.example.couplesnight.ui.preferences.PreferencesFragment"
-        android:label="Preferences" />
+        android:name="com.example.couplesnight.view.PreferencesFragment"
+        android:label="Preferences"
+        tools:layout="@layout/fragment_preferences">
+        <argument
+            android:name="sessionId"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_preferencesFragment_to_findMoviesFragment"
+            app:destination="@id/findMoviesFragment" />
+    </fragment>
+
+    <!-- Find Movies Fragment -->
+    <fragment
+        android:id="@+id/findMoviesFragment"
+        android:name="com.example.couplesnight.view.FindMoviesFragment"
+        android:label="Find Movies"
+        tools:layout="@layout/fragment_find_movies">
+
+        <argument
+            android:name="apiKey"
+            app:argType="string" />
+        <argument
+            android:name="genres"
+            app:argType="string" />
+        <argument
+            android:name="minRating"
+            app:argType="float" />
+        <argument
+            android:name="providers"
+            app:argType="string" />
+        <argument
+            android:name="customMovies"
+            app:argType="com.example.couplesnight.model.CustomMovie[]" />
+        <argument
+            android:name="sessionId"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionFindMoviesFragmentToMutualMoviesFragment"
+            app:destination="@id/mutualMoviesFragment" />
+    </fragment>
+
+    <!-- ✅ Mutual Movies Fragment -->
+    <fragment
+        android:id="@+id/mutualMoviesFragment"
+        android:name="com.example.couplesnight.view.MutualMoviesFragment"
+        android:label="Mutual Movies"
+        tools:layout="@layout/fragment_mutual_movies">
+        <argument
+            android:name="mutualMovies"
+            app:argType="com.example.couplesnight.model.Movie[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.couplesnight.view.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+
+
 </navigation>

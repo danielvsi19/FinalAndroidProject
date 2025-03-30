@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CouplesNight</string>
+    <string name="app_name">Couples Night</string>
+    <string name="login">Login</string>
 </resources>

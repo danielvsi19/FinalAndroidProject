@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.CouplesNight" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#6A55D0</item>
+        <item name="colorPrimaryDark">#583CBB</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="android:windowBackground">@drawable/gradient_background</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:buttonStyle">@style/RoundedButton</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="RoundedButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- EditText Style -->
+    <style name="RoundedEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="android:textColor">#6A55D0</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColorHint">#AAAAAA</item>
+    </style>
+
+    <!-- Login and Register Text Style -->
+    <style name="LoginText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Hint Text Style -->
+    <style name="HintText">
+        <item name="android:textColor">#AAAAAA</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
 </resources>
