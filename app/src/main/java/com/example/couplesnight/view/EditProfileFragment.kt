@@ -6,20 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.couplesnight.databinding.FragmentEditProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import com.google.firebase.auth.UserProfileChangeRequest
 
 class EditProfileFragment : Fragment() {
 
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
-
-    private val firestore = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,35 +27,29 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = auth.currentUser?.uid ?: return
-
-        lifecycleScope.launch {
-            try {
-                val userDoc = firestore.collection("users").document(userId).get().await()
-                val currentUsername = userDoc.getString("username") ?: ""
-                binding.usernameEditText.setText(currentUsername)
-            } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Failed to load profile", Toast.LENGTH_SHORT).show()
-            }
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.let { user ->
+            binding.usernameEditText.setText(user.displayName)
         }
 
         binding.saveButton.setOnClickListener {
-            val newUsername = binding.usernameEditText.text.toString()
-            if (newUsername.isBlank()) {
-                Toast.makeText(requireContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            val newName = binding.usernameEditText.text.toString().trim()
 
-            lifecycleScope.launch {
-                try {
-                    firestore.collection("users")
-                        .document(userId)
-                        .update("username", newUsername)
-                        .await()
-                    Toast.makeText(requireContext(), "Username updated!", Toast.LENGTH_SHORT).show()
-                } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Update failed", Toast.LENGTH_SHORT).show()
+            if (newName.isNotEmpty()) {
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setDisplayName(newName)
+                    .build()
+
+                currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(requireContext(), "Username updated successfully", Toast.LENGTH_SHORT).show()
+                        findNavController().navigateUp()
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to update username", Toast.LENGTH_SHORT).show()
+                    }
                 }
+            } else {
+                Toast.makeText(requireContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
     }
